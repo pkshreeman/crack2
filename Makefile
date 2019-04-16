@@ -1,13 +1,13 @@
 # -*- indent-tabs-mode:t; -*-
 
 # The number of random hashes to pull from the rockyou file
-NUM_HASHES=20
+NUM_HASHES=100
 
 # Which rockyou file to use
 #ROCKYOU=rockyou100.txt
-#ROCKYOU=rockyou1000.txt
+ROCKYOU=rockyou1000.txt
 #ROCKYOU=rockyou2000.txt
-ROCKYOU=rockyou1m.txt
+#ROCKYOU=rockyou1m.txt
 
 all: hashpass crack
 
@@ -42,3 +42,6 @@ test: crack hashes.txt
 
 check: crack hashes.txt
 	valgrind ./crack hashes.txt $(ROCKYOU)
+	
+check2: crack hashes.txt
+	valgrind ./crack hashes.txt $(ROCKYOU) -v --leak-check=full --xtree-memory=full  --xtree-leak=yes
