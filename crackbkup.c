@@ -8,9 +8,9 @@
 const int PASS_LEN=20;        // Maximum any password will be
 const int HASH_LEN=33;        // Length of MD5 hash strings
 
-char *contents;
-char **words;
-
+// Given a hash and a plaintext guess, return 1 if
+// the hash of the guess matches the given hash.
+// That is, return 1 if the guess is correct.
 int tryguess(char *hash, char *guess)
 {
     if (strcmp(hash, md5(guess, strlen(guess)))==0) return 1;
@@ -33,7 +33,7 @@ char **read_dictionary(char *filename, int *size)
     
     int len = file_length(filename);
     
-    contents =  malloc (len);
+    char *contents =  malloc (len);
     
     FILE *f = fopen(filename, "r");
     if (!f){
@@ -55,7 +55,7 @@ char **read_dictionary(char *filename, int *size)
         numOfLines++;
     }
     
-    words = malloc( numOfLines * sizeof(char *));
+    char **words = malloc( numOfLines * sizeof(char *));
     
     //Fill in each address
     words[0] = contents;
@@ -67,11 +67,10 @@ char **read_dictionary(char *filename, int *size)
         }
     }
     //printf("Value of j: %d\n",j);
-    /*Print out each word
+    //Print out each word
     for (int i = 0; i < j; i++){
         //printf("%d %s\n", i,words[i]);
     }
-    */
 
     // From what I understand, size is how many words/lines
     *size = j;
@@ -90,8 +89,8 @@ int main(int argc, char *argv[])
     // Read the dictionary file into an array of strings.
     int dlen;
     char **dict = read_dictionary(argv[2], &dlen);
- 
     //printf("Value of dlen: %d", dlen);
+
     
     // Open the hash file for reading.
     
@@ -101,6 +100,12 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    // For each hash, try every entry in the dictionary.
+    // Print the matching dictionary entry.
+    // Need two nested loops.
+    //const int PASS_LEN=20;        // Maximum any password will be
+    //const int HASH_LEN=33;
+    
     char line[50];
    
     while(fgets(line, 50, h) != NULL )
@@ -116,11 +121,9 @@ int main(int argc, char *argv[])
             
         }
     }
-       
-    free(contents);
-    free(words);
+    
     fclose(h);
     
 }
-
-    
+    //free(words);
+    //free(contents);
