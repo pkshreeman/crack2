@@ -13,8 +13,13 @@ char **words;
 
 int tryguess(char *hash, char *guess)
 {
-    if (strcmp(hash, md5(guess, strlen(guess)))==0) return 1;
-
+    char *md5chars = md5(guess, strlen(guess));
+    if (strcmp(hash,md5chars )==0) {
+        free (md5chars);
+        return 1;
+}
+    
+    free (md5chars);
     return 0;
 }
 

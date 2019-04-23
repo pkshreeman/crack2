@@ -5,9 +5,9 @@ NUM_HASHES=100
 
 # Which rockyou file to use
 #ROCKYOU=rockyou100.txt
-ROCKYOU=rockyou1000.txt
+#ROCKYOU=rockyou1000.txt
 #ROCKYOU=rockyou2000.txt
-#ROCKYOU=rockyou1m.txt
+ROCKYOU=rockyou1m.txt
 
 all: hashpass crack
 
